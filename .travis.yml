@@ -1,2 +1,8 @@
 language: java
 jdk: openjdk11
+
+services:
+  - docker
+
+after_success:
+  - docker build -t raymondmm/spring-boot-docker:demo -f Dockerfile.arm32v7 .
