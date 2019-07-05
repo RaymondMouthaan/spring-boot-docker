@@ -1,6 +1,8 @@
 node {
   echo 'The pipeline started'
 
+  jdk = tool name: 'openjdk-11'
+  env.JAVA_HOME = "${jdk}"
 
   def branchVersion = ""
 
