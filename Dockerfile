@@ -1,7 +1,8 @@
 FROM amd64/openjdk:11-jre-slim
 
-VOLUME /tmp
-COPY target/spring-boot-docker-0.0.1-master-SNAPSHOT.jar app.jar
+ARG PACKAGE_VERSION
+
+COPY target/spring-boot-docker-${PACKAGE_VERSION}.jar app.jar
 RUN sh -c 'touch /app.jar'
 
 EXPOSE 8080
