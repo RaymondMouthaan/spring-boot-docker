@@ -1,8 +1,8 @@
 node {
   echo 'The pipeline started'
 
-//  jdk = tool name: 'openjdk-11'
-//  env.JAVA_HOME = "${jdk}"
+  jdk = tool name: 'openjdk-11'
+  env.JAVA_HOME = "${jdk}"
 
   def branchVersion = ""
 
@@ -15,13 +15,13 @@ node {
   }
 
   stage ('Determine Branch Version') {
-    environment {
-      env.JAVA_HOME = "${tool 'openjdk-11'}"
-      env.PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
-    }
+//    environment {
+//      env.JAVA_HOME = "${tool 'openjdk-11'}"
+//      env.PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
+//    }
 
     // add maven to path
-    //env.PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
+    env.PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
 
     // determine version in pom.xml
     def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
