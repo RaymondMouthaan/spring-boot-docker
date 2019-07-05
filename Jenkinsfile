@@ -16,8 +16,8 @@ node {
 
   stage ('Determine Branch Version') {
     environment {
-      JAVA_HOME = "${tool 'openjdk-11'}"
-      PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
+      env.JAVA_HOME = "${tool 'openjdk-11'}"
+      env.PATH = "${tool 'maven-3.6.1'}/bin:${env.PATH}"
     }
 
     // add maven to path
