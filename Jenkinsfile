@@ -9,7 +9,7 @@ node {
     checkout scm
 
     // checkout input branch
-    sh "git checkout ${caller.env.BRANCH_NAME}"
+    sh "git checkout ${BRANCH_NAME}"
   }
 
   stage ('Determine Branch Version') {
@@ -34,6 +34,7 @@ node {
     // build .war package
     sh 'mvn clean package -U'
   }
+
 
 }
 
