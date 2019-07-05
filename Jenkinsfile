@@ -44,7 +44,7 @@ node {
 
   stage ('Docker Build') {
       // prepare docker build context
-      sh "cp target/spring-boot-docker-0.0.1-master-SNAPSHOT.jar ./tmp-docker-build-context"
+      sh "cp target/spring-boot-docker-0.0.1-master-SNAPSHOT.jar ./tmp-docker-build-context/"
 
       // Build and push image with Jenkins' docker-plugin
       withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
