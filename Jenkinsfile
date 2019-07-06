@@ -77,7 +77,7 @@ pipeline {
 
                 script {
                     withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
-                        dockerContainer = dockerImage.run("-p8888:8080", "--name spring-boot-demo-app")
+                        dockerContainer = dockerImage.run("-p8888:8080 --name spring-boot-demo-app-testing")
                     }
                 }
             }
