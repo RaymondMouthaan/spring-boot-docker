@@ -22,20 +22,22 @@ pipeline {
 
         stage('Determine Branch Version') {
             steps {
-                //    determine version in pom.xml
-                pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
-                branchVersion = ""
+                script {
+                    //    determine version in pom.xml
+                    pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
+                    branchVersion = ""
 
-                // compute proper branch SNAPSHOT version
-                pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "")
-                branchVersion = ${BRANCH_NAME}
-                branchVersion = branchVersion.replaceAll(/origin\//, "")
-                branchVersion = branchVersion.replaceAll(/\W/, "-")
-                branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
+                    // compute proper branch SNAPSHOT version
+                    pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "")
+                    branchVersion = $ { BRANCH_NAME }
+                    branchVersion = branchVersion.replaceAll(/origin\//, "")
+                    branchVersion = branchVersion.replaceAll(/\W/, "-")
+                    branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
 
-                // set branch SNAPSHOT version in pom.xml
-                sh "mvn versions:set -DnewVersion=${branchVersion}"
-                BRANCH_VERSION = branchVersion
+                    // set branch SNAPSHOT version in pom.xml
+                    sh "mvn versions:set -DnewVersion=${branchVersion}"
+                    BRANCH_VERSION = branchVersion
+                }
             }
         }
 
