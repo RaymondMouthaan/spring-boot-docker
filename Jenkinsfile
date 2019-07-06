@@ -76,21 +76,29 @@ pipeline {
 
                 script {
                     withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
-                        dockerImage.run("-p8888:8080", "--name spring-boot-demo-app")
+                        dockerContainer = dockerImage.run("-p8888:8080", "--name spring-boot-demo-app")
                     }
                 }
             }
 
         }
 
-        stage('Example') {
+        stage('Test') {
             steps {
-                echo "${BRANCH_VERSION}"
-
-//                sh(script: 'java --version')
-//                sh(script: 'mvn --version')
-
+                echo "Testing 1 2 3 ..."
             }
         }
     }
+
+    post {
+        always {
+            echo "Stop Docker image"
+            script {
+                if (dockerContainer) {
+                    dockerContainer.stop()
+                }
+            }
+        }
+    }
+
 }
