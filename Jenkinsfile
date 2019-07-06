@@ -67,7 +67,7 @@ node {
       echo "Run docker image"
 
       withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
-          pipelineContext.dockerContainer = pipelineContext.dockerImage.run()
+          pipelineContext.dockerContainer = pipelineContext.dockerImage.run("-p8888:8080")
       }
   }
 
