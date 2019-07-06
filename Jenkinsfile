@@ -67,19 +67,19 @@ node {
         echo "Run docker image"
 
         withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
-            pipelineContext.dockerContainer = pipelineContext.dockerImage.run("-p8888:8080")
+            pipelineContext.dockerContainer = pipelineContext.dockerImage.run("-p8888:8080", "--name spring-boot-demo-app")
         }
     }
 
-    post {
-        always {
-            echo "Stop Docker image"
-            script {
-                if (pipelineContext && pipelineContext.dockerContainer) {
-                    pipelineContext.dockerContainer.stop()
-                }
-            }
-        }
-    }
+//    post {
+//        always {
+//            echo "Stop Docker image"
+//            script {
+//                if (pipelineContext && pipelineContext.dockerContainer) {
+//                    pipelineContext.dockerContainer.stop()
+//                }
+//            }
+//        }
+//    }
 
 }
