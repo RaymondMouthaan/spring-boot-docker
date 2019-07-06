@@ -11,6 +11,7 @@ pipeline {
                 echo 'Hello World'
                 echo "${JAVA_HOME}"
                 echo "${MAVEN_HOME}"
+                echo "${PATH}"
 
                 sh(script: 'java --version')
                 sh(script: 'mvn --version')
