@@ -45,6 +45,8 @@ node {
   }
 
   stage ('Docker Build') {
+      echo "Build docker image"
+
       // prepare docker build context
       //sh "cp target/spring-boot-docker-0.0.1-master-SNAPSHOT.jar ./tmp-docker-build-context/"
 
@@ -59,7 +61,7 @@ node {
         //}
       }
     }
-  }
+
 
   stage ('Docker Run') {
       echo "Run docker image"
@@ -69,3 +71,4 @@ node {
       }
   }
 
+}
