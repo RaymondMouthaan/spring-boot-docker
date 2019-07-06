@@ -1,11 +1,13 @@
 pipeline {
+
+    // docs: http://denpasar.indonesia:8082/job/docker-pipeline/pipeline-syntax/globals
+
     agent any
 
     environment {
         JAVA_HOME = "${tool 'openjdk-11'}"
         MAVEN_HOME = "${tool 'maven-3.6.1'}/bin"
         PATH = "${MAVEN_HOME}:${PATH}"
-        BRANCH_VERSION = ""
     }
 
     stages {
@@ -36,7 +38,6 @@ pipeline {
 
                     // set branch SNAPSHOT version in pom.xml
                     sh "mvn versions:set -DnewVersion=${branchVersion}"
-                    BRANCH_VERSION = branchVersion
                 }
             }
         }
@@ -83,9 +84,11 @@ pipeline {
 
         }
 
-        stage('Test') {
+        stage('Docker Test') {
             steps {
                 echo "Testing 1 2 3 ..."
+
+                sleep(time:60, unit:"SECONDS")
             }
         }
     }
