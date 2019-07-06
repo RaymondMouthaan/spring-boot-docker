@@ -1,9 +1,12 @@
 pipeline {
     agent any
+
     environment {
         JAVA_HOME = "${tool 'openjdk-11'}"
         MAVEN_HOME = "${tool 'maven-3.6.1'}/bin"
+        PATH = "${MAVEN_HOME}:${PATH}"
     }
+
     stages {
 
         stage('Example') {
