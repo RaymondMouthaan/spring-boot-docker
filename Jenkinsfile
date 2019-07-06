@@ -1,4 +1,6 @@
 node {
+  def pipelineContext = [:]
+
   echo 'The pipeline started'
 
   jdk = tool name: 'openjdk-11'
@@ -50,15 +52,20 @@ node {
       withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
         //withDockerRegistry([credentialsId: 'docker-registry-credentials', url: "https://<my-docker-registry>/"]) {
           // we give the image the same version as the .war package
-          def image = docker.build("raymondmm/spring-boot-demo:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} .")
+          def dockerImage = docker.build("raymondmm/spring-boot-demo:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} .")
+
+          pipelineContext.dockerImage = dockerImage
           //image.push()
         //}
       }
     }
   }
 
+  stage ('Docker Run') {
+      echo "Run docker image"
 
+      withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
+          pipelineContext.dockerContainer = pipelineContext.dockerImage.run()
+      }
+  }
 
-//withDockerServer([uri: 'tcp://denpasar.indonesia:2575']) {
-    // some block
-//}
