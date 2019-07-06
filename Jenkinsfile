@@ -29,7 +29,7 @@ pipeline {
 
                     // compute proper branch SNAPSHOT version
                     pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "")
-                    branchVersion = ${BRANCH_NAME}
+                    branchVersion = "${BRANCH_NAME}"
                     branchVersion = branchVersion.replaceAll(/origin\//, "")
                     branchVersion = branchVersion.replaceAll(/\W/, "-")
                     branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
