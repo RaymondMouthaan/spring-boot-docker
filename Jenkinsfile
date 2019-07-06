@@ -70,6 +70,19 @@ pipeline {
             }
         }
 
+        stage('Docker Run') {
+            echo "Run docker image"
+
+            steps {
+                script {
+                    withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
+                        dockerImage.run("-p8888:8080", "--name spring-boot-demo-app")
+                    }
+                }
+            }
+
+        }
+
         stage('Example') {
             steps {
                 echo "${BRANCH_VERSION}"
