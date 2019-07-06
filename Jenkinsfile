@@ -47,6 +47,29 @@ pipeline {
             }
         }
 
+        stage('Docker Build') {
+            steps {
+                echo "Build docker image"
+
+                script {
+                    // prepare docker build context
+                    //sh "cp target/spring-boot-docker-0.0.1-master-SNAPSHOT.jar ./tmp-docker-build-context/"
+
+                    // Build and push image with Jenkins' docker-plugin
+                    withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
+                        //withDockerRegistry([credentialsId: 'docker-registry-credentials', url: "https://<my-docker-registry>/"]) {
+                        // we give the image the same version as the .war package
+                        dockerImage = docker.build("raymondmm/spring-boot-demo:${branchVersion}", "--build-arg PACKAGE_VERSION=${branchVersion} .")
+
+                        //pipelineContext.dockerImage = dockerImage
+                        //image.push()
+                        //}
+                    }
+
+                }
+            }
+        }
+
         stage('Example') {
             steps {
                 echo "${BRANCH_VERSION}"
