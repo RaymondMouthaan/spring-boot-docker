@@ -41,13 +41,14 @@ pipeline {
             }
         }
 
-//        stage('Example') {
-//            steps {
-//                sh(script: 'java --version')
-//                sh(script: 'mvn --version')
-//                echo "${BRANCH_VERSION}"
-//
-//            }
-//        }
+        stage('Example') {
+            steps {
+                echo "${BRANCH_VERSION}"
+
+                sh(script: 'java --version')
+                sh(script: 'mvn --version')
+
+            }
+        }
     }
 }
