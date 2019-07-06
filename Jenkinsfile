@@ -23,8 +23,8 @@ pipeline {
         stage('Determine Branch Version') {
             steps {
                 //    determine version in pom.xml
-                def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
-                def branchVersion = ""
+                pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
+                branchVersion = ""
 
                 // compute proper branch SNAPSHOT version
                 pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "")
