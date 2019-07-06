@@ -41,12 +41,18 @@ pipeline {
             }
         }
 
+        stage('Java Build') {
+            steps {
+                sh 'mvn clean package -U'
+            }
+        }
+
         stage('Example') {
             steps {
                 echo "${BRANCH_VERSION}"
 
-                sh(script: 'java --version')
-                sh(script: 'mvn --version')
+//                sh(script: 'java --version')
+//                sh(script: 'mvn --version')
 
             }
         }
