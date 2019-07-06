@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     //    determine version in pom.xml
-                    pomVersion = sh('mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
+                    pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
 //                    branchVersion = ""
 //
 //                    // compute proper branch SNAPSHOT version
