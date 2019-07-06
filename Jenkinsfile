@@ -9,17 +9,40 @@ pipeline {
 
     stages {
 
-        stage('Example') {
+        stage('Checkout') {
             steps {
-                echo 'Hello World'
-                echo "${JAVA_HOME}"
-                echo "${MAVEN_HOME}"
-                echo "${PATH}"
+                // checkout repository
+                checkout scm
 
-                sh(script: 'java --version')
-                sh(script: 'mvn --version')
-
+                // checkout input branch
+                sh "git checkout ${BRANCH_NAME}"
             }
         }
+
+//        stage('Determine Branch Version') {
+//
+//
+//
+//            // determine version in pom.xml
+//            def pomVersion = sh(script: 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive exec:exec', returnStdout: true).trim()
+//
+//            // compute proper branch SNAPSHOT version
+//            pomVersion = pomVersion.replaceAll(/-SNAPSHOT/, "")
+//            branchVersion = env.BRANCH_NAME
+//            branchVersion = branchVersion.replaceAll(/origin\//, "")
+//            branchVersion = branchVersion.replaceAll(/\W/, "-")
+//            branchVersion = "${pomVersion}-${branchVersion}-SNAPSHOT"
+//
+//            // set branch SNAPSHOT version in pom.xml
+//            sh "mvn versions:set -DnewVersion=${branchVersion}"
+//        }
+//
+//        stage('Example') {
+//            steps {
+//                sh(script: 'java --version')
+//                sh(script: 'mvn --version')
+//
+//            }
+//        }
     }
 }
