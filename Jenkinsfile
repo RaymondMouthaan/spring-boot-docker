@@ -8,7 +8,7 @@ pipeline {
         stage('Example') {
             steps {
                 echo 'Hello World'
-                echo '${JAVA_HOME}'
+                echo "${JAVA_HOME}"
             }
         }
     }
