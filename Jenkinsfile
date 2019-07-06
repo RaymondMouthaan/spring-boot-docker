@@ -95,7 +95,9 @@ pipeline {
             echo "Stop Docker image"
             script {
                 if (dockerContainer) {
-                    dockerContainer.stop()
+                    withDockerServer([uri: "tcp://denpasar.indonesia:2575"]) {
+                        dockerContainer.stop()
+                    }
                 }
             }
         }
