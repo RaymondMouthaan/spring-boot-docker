@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     environment {
         JAVA_HOME = tool name: 'openjdk-11'
     }
